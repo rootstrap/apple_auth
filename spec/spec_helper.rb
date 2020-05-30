@@ -1,7 +1,18 @@
 # frozen_string_literal: true
 
+require 'rspec'
+require 'action_controller/railtie'
 require 'bundler/setup'
-require 'apple_sign_in'
+require 'simplecov'
+require 'webmock/rspec'
+
+require './lib/apple_sign_in'
+
+SimpleCov.start do
+  add_filter '/spec/'
+end
+
+require 'apple_sign_in/base'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

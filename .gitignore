@@ -9,6 +9,8 @@
 
 # rspec failure tracking
 .rspec_status
+.byebug_history
+.DS_Store
 
 Gemfile.lock
 

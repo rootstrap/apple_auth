@@ -1,8 +1,15 @@
 # frozen_string_literal: true
 
-require 'apple_sign_in/version'
+# Rails Core
+require 'active_support/core_ext/hash'
 
-module AppleSignIn
-  class Error < StandardError; end
-  # Your code goes here...
-end
+# Ruby Core
+require 'base64'
+require 'json'
+require 'net/http'
+
+# Gems
+require 'jwt'
+
+# Files
+require 'apple_sign_in/user_identity'

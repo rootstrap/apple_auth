@@ -13,7 +13,7 @@ jobs:
 
 env:
   global:
-    - CC_TEST_REPORTER_ID=get_a_test_reporter_id_from_code_climate
+    - CC_TEST_REPORTER_ID=cb01575b98b3b80848a3bc292ca6145860871470e5d0669453030d36578f9115
 
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter

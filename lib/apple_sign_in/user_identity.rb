@@ -14,9 +14,7 @@ module AppleSignIn
     def valid?
       token_data = decoded_jwt
 
-      return true if match_user_identity?(token_data)
-
-      false
+      JWTConditions.new(user_identity, token_data).valid?
     end
 
     private
@@ -25,10 +23,6 @@ module AppleSignIn
       key_hash = apple_key_hash
       apple_jwk = JWT::JWK.import(key_hash)
       JWT.decode(jwt, apple_jwk.public_key, true, algorithm: key_hash['alg']).first
-    end
-
-    def match_user_identity?(token_data)
-      user_identity && user_identity == token_data['sub']
     end
 
     def apple_key_hash

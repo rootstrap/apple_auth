@@ -6,7 +6,7 @@ RSpec.describe AppleSignIn::UserIdentity do
   let(:jwt_sub) { user_identity }
   let(:jwt_iss) { 'https://appleid.apple.com' }
   let(:jwt_aud) { 'com.apple_sign_in' }
-  let(:jwt_iat) { Time.now.to_i }
+  let(:jwt_iat) { Time.now }
   let(:jwt_exp) { jwt_iat + 5.minutes }
   let(:private_key) { OpenSSL::PKey::RSA.generate(2048) }
   let(:jwk) { JWT::JWK.new(private_key) }
@@ -14,8 +14,8 @@ RSpec.describe AppleSignIn::UserIdentity do
     {
       iss: jwt_iss,
       aud: jwt_aud,
-      exp: jwt_exp,
-      iat: jwt_iat,
+      exp: jwt_exp.to_i,
+      iat: jwt_iat.to_i,
       sub: jwt_sub,
       email: 'timmy@test.com',
       email_verified: 'true',
@@ -34,6 +34,8 @@ RSpec.describe AppleSignIn::UserIdentity do
         status: 200,
         headers: { 'Content-Type': 'application/json' }
       )
+    AppleSignIn.config.apple_aud = jwt_aud
+    AppleSignIn.config.apple_iss = jwt_iss
   end
 
   subject(:user_identity_service) { described_class.new(uid, signed_jwt) }

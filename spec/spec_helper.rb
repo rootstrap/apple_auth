@@ -2,6 +2,7 @@
 
 require 'rspec'
 require 'action_controller/railtie'
+require 'generator_spec'
 require 'bundler/setup'
 require 'simplecov'
 require 'webmock/rspec'

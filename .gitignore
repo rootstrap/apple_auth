@@ -16,3 +16,6 @@ Gemfile.lock
 
 Dockerfile
 docker-compose.yml
+
+# File created by the generators tests
+spec/generators/tmp/

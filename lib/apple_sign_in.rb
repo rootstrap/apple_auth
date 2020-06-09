@@ -2,6 +2,7 @@
 
 # Rails Core
 require 'active_support/core_ext/hash'
+require 'rails/generators'
 
 # Ruby Core
 require 'base64'
@@ -12,4 +13,14 @@ require 'net/http'
 require 'jwt'
 
 # Files
+require 'apple_sign_in/config'
+
+require 'apple_sign_in/helpers/conditions/aud_condition'
+require 'apple_sign_in/helpers/conditions/exp_condition'
+require 'apple_sign_in/helpers/conditions/iat_condition'
+require 'apple_sign_in/helpers/conditions/iss_condition'
+require 'apple_sign_in/helpers/jwt_conditions'
+
 require 'apple_sign_in/user_identity'
+
+require 'generators/apple_sign_in/config/config_generator'

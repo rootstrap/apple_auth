@@ -8,7 +8,7 @@ module AppleSignIn
       end
 
       def valid?
-        @aud == AppleSignIn.config.apple_aud
+        @aud == AppleSignIn.config.apple_client_id
       end
     end
   end

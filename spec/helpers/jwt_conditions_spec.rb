@@ -25,8 +25,7 @@ RSpec.describe AppleSignIn::JWTConditions do
   let(:decoded_jwt) { ActiveSupport::HashWithIndifferentAccess.new(jwt) }
 
   before do
-    AppleSignIn.config.apple_aud = 'com.apple_sign_in'
-    AppleSignIn.config.apple_iss = 'https://appleid.apple.com'
+    AppleSignIn.config.apple_client_id = 'com.apple_sign_in'
   end
 
   subject(:jwt_conditions_helper) { described_class.new(user_identity, decoded_jwt) }
@@ -64,7 +63,7 @@ RSpec.describe AppleSignIn::JWTConditions do
       end
     end
 
-    context 'when jwt_aud os different to apple_aud' do
+    context 'when jwt_aud os different to apple_client_id' do
       let(:jwt_aud) { 'net.apple_sign_in' }
 
       it 'returns false' do

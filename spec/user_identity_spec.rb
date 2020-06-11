@@ -34,8 +34,7 @@ RSpec.describe AppleSignIn::UserIdentity do
         status: 200,
         headers: { 'Content-Type': 'application/json' }
       )
-    AppleSignIn.config.apple_aud = jwt_aud
-    AppleSignIn.config.apple_iss = jwt_iss
+    AppleSignIn.config.apple_client_id = jwt_aud
   end
 
   subject(:user_identity_service) { described_class.new(uid, signed_jwt) }

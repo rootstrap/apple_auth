@@ -22,5 +22,6 @@ require 'apple_sign_in/helpers/conditions/iss_condition'
 require 'apple_sign_in/helpers/jwt_conditions'
 
 require 'apple_sign_in/user_identity'
+require 'apple_sign_in/token'
 
 require 'generators/apple_sign_in/config/config_generator'

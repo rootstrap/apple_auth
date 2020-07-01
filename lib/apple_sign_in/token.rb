@@ -5,6 +5,7 @@ module AppleSignIn
     APPLE_AUD = 'https://appleid.apple.com'
     APPLE_TOKEN_URL = 'https://appleid.apple.com/auth/token'
     APPLE_CONFIG = AppleSignIn.config
+    APPLE_CODE_TYPE = 'authorization_code'
 
     attr_reader :grant_type, :code, :refresh_token
 
@@ -23,21 +24,26 @@ module AppleSignIn
       http.request(request)
     end
 
-    private
-
     def apple_token_params
-      {
+      params = {
         client_id: APPLE_CONFIG.apple_team_id,
         client_secret: client_secret_from_jwt,
-        code: code,
         grant_type: grant_type,
-        refresh_token: refresh_token,
         redirect_uri: APPLE_CONFIG.redirect_uri
       }
+      if grant_type == APPLE_CODE_TYPE
+        params.merge({
+                       code: code
+                     })
+      else
+        params.merge({
+                       refresh_token: refresh_token
+                     })
+      end
     end
 
     def client_secret_from_jwt
-      JWT.encode(claims, AppleSignIn.config.apple_private_key, 'ES256', claims_headers)
+      JWT.encode(claims, gen_private_key, 'ES256', claims_headers)
     end
 
     def claims
@@ -59,8 +65,14 @@ module AppleSignIn
 
     def request_header
       {
-        'Content-Type': 'text/json'
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
+    end
+
+    def gen_private_key
+      key = AppleSignIn.config.apple_private_key
+      key = OpenSSL::PKey::EC.new(key) unless key.class == OpenSSL::PKey::EC
+      key
     end
   end
 end

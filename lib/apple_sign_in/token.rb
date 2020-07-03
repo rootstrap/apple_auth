@@ -6,6 +6,7 @@ module AppleSignIn
     APPLE_TOKEN_URL = 'https://appleid.apple.com/auth/token'
     APPLE_CONFIG = AppleSignIn.config
     APPLE_CODE_TYPE = 'authorization_code'
+    APPLE_ALG = 'ES256'
 
     attr_reader :grant_type, :code, :refresh_token
 
@@ -43,7 +44,7 @@ module AppleSignIn
     end
 
     def client_secret_from_jwt
-      JWT.encode(claims, gen_private_key, 'ES256', claims_headers)
+      JWT.encode(claims, gen_private_key, APPLE_ALG, claims_headers)
     end
 
     def claims
@@ -59,6 +60,7 @@ module AppleSignIn
 
     def claims_headers
       {
+        alg: APPLE_ALG,
         kid: AppleSignIn.config.apple_key_id
       }
     end

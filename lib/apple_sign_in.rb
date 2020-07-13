@@ -11,6 +11,7 @@ require 'net/http'
 
 # Gems
 require 'jwt'
+require 'oauth2'
 
 # Files
 require 'apple_sign_in/config'

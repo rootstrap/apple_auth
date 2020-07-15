@@ -3,44 +3,32 @@
 module AppleSignIn
   class Token
     APPLE_AUD = 'https://appleid.apple.com'
-    APPLE_TOKEN_URL = 'https://appleid.apple.com/auth/token'
     APPLE_CONFIG = AppleSignIn.config
     APPLE_CODE_TYPE = 'authorization_code'
     APPLE_ALG = 'ES256'
 
     attr_reader :grant_type, :code, :refresh_token
 
-    def initialize(type, code, refresh_token)
-      @grant_type = type
+    def initialize(code)
       @code = code
-      @refresh_token = refresh_token
     end
 
     # :reek:FeatureEnvy
     def authenticate
-      uri = URI.parse(APPLE_TOKEN_URL)
-      http = Net::HTTP.new(uri.host, uri.port)
-      request = Net::HTTP::Post.new(uri.request_uri, request_header)
-      request.body = apple_token_params.to_json
-      http.request(request)
+      access_token = apple_access_token
+      access_token.refresh! if access_token.expired?
+
+      reponse_hash(access_token)
     end
 
     def apple_token_params
-      params = {
+      {
         client_id: APPLE_CONFIG.apple_team_id,
         client_secret: client_secret_from_jwt,
-        grant_type: grant_type,
-        redirect_uri: APPLE_CONFIG.redirect_uri
+        grant_type: APPLE_CODE_TYPE,
+        redirect_uri: APPLE_CONFIG.redirect_uri,
+        code: code
       }
-      if grant_type == APPLE_CODE_TYPE
-        params.merge({
-                       code: code
-                     })
-      else
-        params.merge({
-                       refresh_token: refresh_token
-                     })
-      end
     end
 
     def client_secret_from_jwt
@@ -75,6 +63,34 @@ module AppleSignIn
       key = AppleSignIn.config.apple_private_key
       key = OpenSSL::PKey::EC.new(key) unless key.class == OpenSSL::PKey::EC
       key
+    end
+
+    def client_urls
+      {
+        site: APPLE_AUD,
+        authorize_url: '/auth/authorize',
+        token_url: '/auth/token'
+      }
+    end
+
+    def reponse_hash(access_token)
+      token_hash = { access_token: access_token.token }
+
+      expires = access_token.expires?
+      if expires
+        token_hash[:expires_at] = access_token.expires_at
+        refresh_token = access_token.refresh_token
+        token_hash[:refresh_token] = refresh_token if refresh_token
+      end
+
+      token_hash
+    end
+
+    def apple_access_token
+      client = ::OAuth2::Client.new(APPLE_CONFIG.apple_client_id,
+                                    client_secret_from_jwt,
+                                    client_urls)
+      client.auth_code.get_token(code, { redirect_uri: APPLE_CONFIG.redirect_uri }, {})
     end
   end
 end

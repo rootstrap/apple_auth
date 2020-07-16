@@ -1,7 +1,5 @@
 # frozen_string_literal: false
 
-require 'byebug'
-
 module AppleSignIn
   class JWTConditions
     include Conditions

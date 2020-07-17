@@ -24,6 +24,24 @@ Or install it yourself as:
 
     $ gem install apple_sign_in
 
+------------------
+
+After installing the gem, you need to run the generator.
+
+    $ rails g apple_sign_in:config
+
+This will generate a new initializer: `apple_sign_in.rb` containing the following default configuration:
+```
+AppleSignIn.configure do |config|
+  # config.apple_client_id = <Your client_id in your Apple Developer account>
+  # config.apple_private_key = <Your private key provided by Apple>
+  # config.apple_key_id = <Your kid provided by Apple>
+  # config.apple_team_id = <Your team id provided by Apple>
+  # config.redirect_uri = <Your app redicrect url>
+end
+```
+Set your different credentials in the file by uncommenting the lines and adding your keys.
+
 ## Usage
 
 TODO: Write usage instructions here

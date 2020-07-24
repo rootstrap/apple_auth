@@ -11,10 +11,12 @@ module AppleSignIn
       @jwt = jwt
     end
 
-    def valid?
+    def validate!
       token_data = decoded_jwt
 
-      JWTConditions.new(user_identity, token_data).valid?
+      JWTConditions.new(user_identity, token_data).validate!
+
+      token_data.symbolize_keys
     end
 
     private

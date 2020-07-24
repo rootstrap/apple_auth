@@ -45,8 +45,8 @@ RSpec.describe AppleSignIn::UserIdentity do
       let(:user_identity) { '1234.5678.910' }
       let(:uid) { user_identity }
 
-      it 'returns true' do
-        expect(user_identity_service).to be_valid
+      it 'returns the validated JWT attributes' do
+        expect(user_identity_service.validate!).to eq(jwt)
       end
 
       context 'when there are more than one private keys' do
@@ -54,12 +54,11 @@ RSpec.describe AppleSignIn::UserIdentity do
         let(:exported_private_key_two) do
           JWT::JWK::RSA.new(private_key).export.merge({ alg: 'RS256' })
         end
-        let(:apple_body) { [exported_private_key, exported_private_key_two] }
 
         let(:apple_body) { [exported_private_key] }
 
-        it 'verifies with the corresponding one' do
-          expect(user_identity_service).to be_valid
+        it 'returns the validated JWT attributes' do
+          expect(user_identity_service.validate!).to eq(jwt)
         end
       end
     end
@@ -69,8 +68,10 @@ RSpec.describe AppleSignIn::UserIdentity do
       let(:user_identity) { '1234.5678.910' }
       let(:uid) { '1234.5678.911' }
 
-      it 'returns false' do
-        expect(user_identity_service).to_not be_valid
+      it 'raises an exception' do
+        expect { user_identity_service.validate! }.to raise_error(
+          AppleSignIn::Conditions::JWTValidationError
+        )
       end
     end
   end

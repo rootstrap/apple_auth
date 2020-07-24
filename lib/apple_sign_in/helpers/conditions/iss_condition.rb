@@ -9,8 +9,10 @@ module AppleSignIn
         @iss = jwt['iss']
       end
 
-      def valid?
-        @iss.include?(APPLE_ISS)
+      def validate!
+        return true if @iss.include?(APPLE_ISS)
+
+        raise JWTValidationError, 'jwt_iss is different to apple_iss'
       end
     end
   end

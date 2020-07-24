@@ -44,7 +44,22 @@ Set your different credentials in the file by uncommenting the lines and adding 
 
 ## Usage
 
-TODO: Write usage instructions here
+Validate JWT token and get user information:
+
+```ruby
+# with a valid JWT
+user_id = '000343.1d22d2937c7a4e56806dfb802b06c430...'
+valid_jwt_token = 'eyJraWQiOiI4NkQ4OEtmIiwiYWxnIjoiUlMyNTYifQ.eyJpc...'
+AppleSignIn::UserIdentity.new(user_id, valid_jwt_token)
+>>  { exp: 1595279622, email: "user@example.com", email_verified: true , ...}
+
+# with an invalid JWT
+invalid_jwt_token = 'eyJraWQiOiI4NkQsd4OEtmIiwiYWxnIjoiUlMyNTYifQ.edsyJpc...'
+AppleSignIn::UserIdentity.new(user_id, invalid_jwt_token)
+>> Traceback (most recent call last):..
+>> ...
+>>  AppleSignIn::Conditions::JWTValidationError
+```
 
 ## Development
 

@@ -15,6 +15,7 @@ require 'oauth2'
 
 # Files
 require 'apple_sign_in/config'
+require 'apple_sign_in/helpers/conditions/jwt_validation_error'
 
 require 'apple_sign_in/helpers/conditions/aud_condition'
 require 'apple_sign_in/helpers/conditions/exp_condition'

@@ -33,7 +33,7 @@ RSpec.describe AppleSignIn::JWTConditions do
   context '#valid?' do
     context 'when decoded jwt attributes are valid and user_identity is valid' do
       it 'returns true' do
-        expect(jwt_conditions_helper).to be_valid
+        expect(jwt_conditions_helper.validate!).to eq(true)
       end
     end
 
@@ -41,16 +41,20 @@ RSpec.describe AppleSignIn::JWTConditions do
       context 'when exp is not a integer' do
         let(:jwt_exp) { Time.now + 5.minutes }
 
-        it 'returns false' do
-          expect(jwt_conditions_helper).to_not be_valid
+        it 'raise an exception' do
+          expect { jwt_conditions_helper.validate! }.to raise_error(
+            AppleSignIn::Conditions::JWTValidationError
+          )
         end
       end
 
       context 'when exp is not a integer' do
         let(:jwt_iat) { Time.now }
 
-        it 'returns false' do
-          expect(jwt_conditions_helper).to_not be_valid
+        it 'raise an exception' do
+          expect { jwt_conditions_helper.validate! }.to raise_error(
+            AppleSignIn::Conditions::JWTValidationError
+          )
         end
       end
     end
@@ -58,40 +62,50 @@ RSpec.describe AppleSignIn::JWTConditions do
     context 'when jwt iss is different to user_identity' do
       let(:jwt_sub) { '1234.5678.911' }
 
-      it 'returns false' do
-        expect(jwt_conditions_helper).to_not be_valid
+      it 'raise an exception' do
+        expect { jwt_conditions_helper.validate! }.to raise_error(
+          AppleSignIn::Conditions::JWTValidationError
+        )
       end
     end
 
-    context 'when jwt_aud os different to apple_client_id' do
+    context 'when jwt_aud is different to apple_client_id' do
       let(:jwt_aud) { 'net.apple_sign_in' }
 
-      it 'returns false' do
-        expect(jwt_conditions_helper).to_not be_valid
+      it 'raise an exception' do
+        expect { jwt_conditions_helper.validate! }.to raise_error(
+          AppleSignIn::Conditions::JWTValidationError, 'jwt_aud is different to apple_client_id'
+        )
       end
     end
 
-    context 'when jwt_iss os different to apple_iss' do
+    context 'when jwt_iss is different to apple_iss' do
       let(:jwt_iss) { 'https://appleid.apple.net' }
 
-      it 'returns false' do
-        expect(jwt_conditions_helper).to_not be_valid
+      it 'raise an exception' do
+        expect { jwt_conditions_helper.validate! }.to raise_error(
+          AppleSignIn::Conditions::JWTValidationError, 'jwt_iss is different to apple_iss'
+        )
       end
     end
 
     context 'when jwt_exp is leasser than now' do
       let(:jwt_exp) { Time.now.to_i }
 
-      it 'returns false' do
-        expect(jwt_conditions_helper).to_not be_valid
+      it 'raise an exception' do
+        expect { jwt_conditions_helper.validate! }.to raise_error(
+          AppleSignIn::Conditions::JWTValidationError, 'Expired jwt_exp'
+        )
       end
     end
 
     context 'when jwt_iat is greater than now' do
       let(:jwt_iat) { (Time.now + 5.minutes).to_i }
 
-      it 'returns false' do
-        expect(jwt_conditions_helper).to_not be_valid
+      it 'raise an exception' do
+        expect { jwt_conditions_helper.validate! }.to raise_error(
+          AppleSignIn::Conditions::JWTValidationError, 'jwt_iat is greater than now'
+        )
       end
     end
   end

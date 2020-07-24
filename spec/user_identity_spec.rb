@@ -70,7 +70,7 @@ RSpec.describe AppleSignIn::UserIdentity do
 
       it 'returns false' do
         expect { user_identity_service.validate }.to raise_error(
-          AppleSignIn::UserIdentity::JWTValidationError
+          AppleSignIn::Conditions::JWTValidationError
         )
       end
     end

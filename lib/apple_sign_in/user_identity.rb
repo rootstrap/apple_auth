@@ -2,8 +2,7 @@
 
 module AppleSignIn
   class UserIdentity
-    class JWTValidationError < StandardError; end
-    APPLE_KEY_URL = 'https://appleid.apple.com/auth/keys'
+    APPLE_KEY_URL = 'https://appleid.apple.com/auth/keys'.freeze
 
     attr_reader :user_identity, :jwt
 
@@ -15,7 +14,7 @@ module AppleSignIn
     def validate
       token_data = decoded_jwt
 
-      raise JWTValidationError unless JWTConditions.new(user_identity, token_data).valid?
+      JWTConditions.new(user_identity, token_data).validate!
 
       token_data.symbolize_keys
     end

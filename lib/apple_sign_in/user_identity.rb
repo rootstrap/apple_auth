@@ -2,7 +2,7 @@
 
 module AppleSignIn
   class UserIdentity
-    APPLE_KEY_URL = 'https://appleid.apple.com/auth/keys'.freeze
+    APPLE_KEY_URL = 'https://appleid.apple.com/auth/keys'
 
     attr_reader :user_identity, :jwt
 
@@ -11,7 +11,7 @@ module AppleSignIn
       @jwt = jwt
     end
 
-    def validate
+    def validate!
       token_data = decoded_jwt
 
       JWTConditions.new(user_identity, token_data).validate!

@@ -41,7 +41,7 @@ RSpec.describe AppleSignIn::JWTConditions do
       context 'when exp is not a integer' do
         let(:jwt_exp) { Time.now + 5.minutes }
 
-        it 'raise an exception' do
+        it 'raises an exception' do
           expect { jwt_conditions_helper.validate! }.to raise_error(
             AppleSignIn::Conditions::JWTValidationError
           )
@@ -51,7 +51,7 @@ RSpec.describe AppleSignIn::JWTConditions do
       context 'when exp is not a integer' do
         let(:jwt_iat) { Time.now }
 
-        it 'raise an exception' do
+        it 'raises an exception' do
           expect { jwt_conditions_helper.validate! }.to raise_error(
             AppleSignIn::Conditions::JWTValidationError
           )
@@ -62,7 +62,7 @@ RSpec.describe AppleSignIn::JWTConditions do
     context 'when jwt iss is different to user_identity' do
       let(:jwt_sub) { '1234.5678.911' }
 
-      it 'raise an exception' do
+      it 'raises an exception' do
         expect { jwt_conditions_helper.validate! }.to raise_error(
           AppleSignIn::Conditions::JWTValidationError
         )
@@ -72,7 +72,7 @@ RSpec.describe AppleSignIn::JWTConditions do
     context 'when jwt_aud is different to apple_client_id' do
       let(:jwt_aud) { 'net.apple_sign_in' }
 
-      it 'raise an exception' do
+      it 'raises an exception' do
         expect { jwt_conditions_helper.validate! }.to raise_error(
           AppleSignIn::Conditions::JWTValidationError, 'jwt_aud is different to apple_client_id'
         )
@@ -82,7 +82,7 @@ RSpec.describe AppleSignIn::JWTConditions do
     context 'when jwt_iss is different to apple_iss' do
       let(:jwt_iss) { 'https://appleid.apple.net' }
 
-      it 'raise an exception' do
+      it 'raises an exception' do
         expect { jwt_conditions_helper.validate! }.to raise_error(
           AppleSignIn::Conditions::JWTValidationError, 'jwt_iss is different to apple_iss'
         )
@@ -92,7 +92,7 @@ RSpec.describe AppleSignIn::JWTConditions do
     context 'when jwt_exp is leasser than now' do
       let(:jwt_exp) { Time.now.to_i }
 
-      it 'raise an exception' do
+      it 'raises an exception' do
         expect { jwt_conditions_helper.validate! }.to raise_error(
           AppleSignIn::Conditions::JWTValidationError, 'Expired jwt_exp'
         )
@@ -102,7 +102,7 @@ RSpec.describe AppleSignIn::JWTConditions do
     context 'when jwt_iat is greater than now' do
       let(:jwt_iat) { (Time.now + 5.minutes).to_i }
 
-      it 'raise an exception' do
+      it 'raises an exception' do
         expect { jwt_conditions_helper.validate! }.to raise_error(
           AppleSignIn::Conditions::JWTValidationError, 'jwt_iat is greater than now'
         )

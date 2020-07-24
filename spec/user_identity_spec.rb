@@ -46,7 +46,7 @@ RSpec.describe AppleSignIn::UserIdentity do
       let(:uid) { user_identity }
 
       it 'returns the validated JWT attributes' do
-        expect(user_identity_service.validate).to eq(jwt)
+        expect(user_identity_service.validate!).to eq(jwt)
       end
 
       context 'when there are more than one private keys' do
@@ -58,7 +58,7 @@ RSpec.describe AppleSignIn::UserIdentity do
         let(:apple_body) { [exported_private_key] }
 
         it 'returns the validated JWT attributes' do
-          expect(user_identity_service.validate).to eq(jwt)
+          expect(user_identity_service.validate!).to eq(jwt)
         end
       end
     end
@@ -68,8 +68,8 @@ RSpec.describe AppleSignIn::UserIdentity do
       let(:user_identity) { '1234.5678.910' }
       let(:uid) { '1234.5678.911' }
 
-      it 'returns false' do
-        expect { user_identity_service.validate }.to raise_error(
+      it 'raises an exception' do
+        expect { user_identity_service.validate! }.to raise_error(
           AppleSignIn::Conditions::JWTValidationError
         )
       end

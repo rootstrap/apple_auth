@@ -19,7 +19,7 @@ module AppleSignIn
     end
 
     def validate!
-      JWT::ClaimsValidator.new(decoded_jwt).validate! && validate_sub! && jwt_conditions_valid!
+      JWT::ClaimsValidator.new(decoded_jwt).validate! && validate_sub! && jwt_conditions_validate!
     rescue JWT::InvalidPayload => e
       raise JWTValidationError, e.message
     end
@@ -32,7 +32,7 @@ module AppleSignIn
       raise JWTValidationError, 'Not valid Sub'
     end
 
-    def jwt_conditions_valid!
+    def jwt_conditions_validate!
       conditions_results = CONDITIONS.map do |condition|
         condition.new(decoded_jwt).validate!
       end

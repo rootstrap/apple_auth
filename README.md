@@ -40,7 +40,7 @@ invalid_jwt_token = 'eyJraWQiOiI4NkQsd4OEtmIiwiYWxnIjoiUlMyNTYifQ.edsyJpc...'
 AppleSignIn::UserIdentity.new(user_id, invalid_jwt_token)
 >> Traceback (most recent call last):..
 >> ...
->>  AppleSignIn::UserIdentity::JWTValidationError
+>>  AppleSignIn::Conditions::JWTValidationError
 ```
 
 ## Development

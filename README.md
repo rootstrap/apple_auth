@@ -44,21 +44,49 @@ Set your different credentials in the file by uncommenting the lines and adding 
 
 ## Usage
 
+This show you an example of a settings
+
+```ruby
+AppleSignIn.configure do |config|
+  config.apple_client_id = 'com.yourapp...'
+  config.apple_private_key = "-----BEGIN PRIVATE KEY-----\nMIGTAgEA....\n-----END PRIVATE KEY-----"
+  config.apple_key_id = 'RTZ...'
+  config.apple_team_id = 'WNU...'
+  config.redirect_uri = 'https://localhost:3000'
+end
+```
+
+We strongly recommend to use environment variable when you add this values.
+
+Apple sign in workflow:
+
+![alt text](https://docs-assets.developer.apple.com/published/360d59b776/rendered2x-1592224731.png)
+
+For more information, check the [Apple oficial documentation](https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_rest_api)
+
 Validate JWT token and get user information:
 
 ```ruby
 # with a valid JWT
 user_id = '000343.1d22d2937c7a4e56806dfb802b06c430...'
 valid_jwt_token = 'eyJraWQiOiI4NkQ4OEtmIiwiYWxnIjoiUlMyNTYifQ.eyJpc...'
-AppleSignIn::UserIdentity.new(user_id, valid_jwt_token)
+AppleSignIn::UserIdentity.new(user_id, valid_jwt_token).validate!
 >>  { exp: 1595279622, email: "user@example.com", email_verified: true , ...}
 
 # with an invalid JWT
 invalid_jwt_token = 'eyJraWQiOiI4NkQsd4OEtmIiwiYWxnIjoiUlMyNTYifQ.edsyJpc...'
-AppleSignIn::UserIdentity.new(user_id, invalid_jwt_token)
+AppleSignIn::UserIdentity.new(user_id, invalid_jwt_token).validate!
 >> Traceback (most recent call last):..
 >> ...
 >>  AppleSignIn::Conditions::JWTValidationError
+```
+
+Verify user identity and get token:
+
+```ruby
+code = 'cfb77c21ecd444390a2c214cd33decdfb.0.mr...'
+AppleSignIn::Token.new(code).authenticate
+>> { access_token: "a7058d...", expires_at: 1595894672, refresh_token: "r8f1ce..." }
 ```
 
 ## Development
@@ -79,3 +107,10 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the AppleSignIn project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/apple_sign_in/blob/master/CODE_OF_CONDUCT.md).
+
+## Credits
+
+apple_sign_in is maintained by [Rootstrap](http://www.rootstrap.com) with the help of our
+[contributors](https://github.com/rootstrap/apple_sign_in/contributors).
+
+[<img src="https://s3-us-west-1.amazonaws.com/rootstrap.com/img/rs.png" width="100"/>](http://www.rootstrap.com)

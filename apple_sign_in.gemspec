@@ -5,8 +5,8 @@ require_relative 'lib/apple_sign_in/base/version'
 Gem::Specification.new do |spec|
   spec.name          = 'apple_sign_in'
   spec.version       = AppleSignIn::Base::VERSION
-  spec.authors       = ['Timothy Peraza']
-  spec.email         = ['timothy@rootstrap.com']
+  spec.authors       = ['Timothy Peraza, Antonieta Alvarez, Martín Morón']
+  spec.email         = ['timothy@rootstrap.com, antonieta.alvarez@rootstrap.com, martin.jaime@rootstrap.com']
 
   spec.summary       = 'Integration with Sign In with Apple authentication'
   spec.homepage      = 'https://github.com/rootstrap/apple_sign_in'

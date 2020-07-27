@@ -7,8 +7,6 @@ module AppleSignIn
     APPLE_CODE_TYPE = 'authorization_code'
     APPLE_ALG = 'ES256'
 
-    attr_reader :grant_type, :code, :refresh_token
-
     def initialize(code)
       @code = code
     end
@@ -20,6 +18,10 @@ module AppleSignIn
 
       reponse_hash(access_token)
     end
+
+    private
+
+    attr_reader :code
 
     def apple_token_params
       {

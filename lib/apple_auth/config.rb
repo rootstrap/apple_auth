@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module AppleSignIn
+module AppleAuth
   class << self
     def configure
       yield config

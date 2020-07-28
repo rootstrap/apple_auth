@@ -7,13 +7,13 @@ require 'bundler/setup'
 require 'simplecov'
 require 'webmock/rspec'
 
-require './lib/apple_sign_in'
+require './lib/apple_auth'
 
 SimpleCov.start do
   add_filter '/spec/'
 end
 
-require 'apple_sign_in/base'
+require 'apple_auth/base'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

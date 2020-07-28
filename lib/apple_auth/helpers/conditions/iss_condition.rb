@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module AppleSignIn
+module AppleAuth
   module Conditions
     class IssCondition
       APPLE_ISS = 'https://appleid.apple.com'

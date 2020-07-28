@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module AppleSignIn
+module AppleAuth
   class UserIdentity
     APPLE_KEY_URL = 'https://appleid.apple.com/auth/keys'
 

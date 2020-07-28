@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AppleSignIn::UserIdentity do
+RSpec.describe AppleAuth::UserIdentity do
   let(:jwt_sub) { user_identity }
   let(:jwt_iss) { 'https://appleid.apple.com' }
   let(:jwt_aud) { 'com.apple_sign_in' }
@@ -34,7 +34,7 @@ RSpec.describe AppleSignIn::UserIdentity do
         status: 200,
         headers: { 'Content-Type': 'application/json' }
       )
-    AppleSignIn.config.apple_client_id = jwt_aud
+    AppleAuth.config.apple_client_id = jwt_aud
   end
 
   subject(:user_identity_service) { described_class.new(uid, signed_jwt) }
@@ -70,7 +70,7 @@ RSpec.describe AppleSignIn::UserIdentity do
 
       it 'raises an exception' do
         expect { user_identity_service.validate! }.to raise_error(
-          AppleSignIn::Conditions::JWTValidationError
+          AppleAuth::Conditions::JWTValidationError
         )
       end
     end

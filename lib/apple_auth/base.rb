@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'apple_sign_in/base/version'
+require 'apple_auth/base/version'
 
-module AppleSignIn
+module AppleAuth
   module Base
     class Error < StandardError; end
   end

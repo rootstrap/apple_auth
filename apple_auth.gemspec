@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
-require_relative 'lib/apple_sign_in/base/version'
+require_relative 'lib/apple_auth/base/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'apple_sign_in'
-  spec.version       = AppleSignIn::Base::VERSION
+  spec.name          = 'apple_auth'
+  spec.version       = AppleAuth::Base::VERSION
   spec.authors       = ['Timothy Peraza, Antonieta Alvarez, Martín Morón']
   spec.email         = ['timothy@rootstrap.com, antonieta.alvarez@rootstrap.com, martin.jaime@rootstrap.com']
 
-  spec.summary       = 'Integration with Sign In with Apple authentication'
-  spec.homepage      = 'https://github.com/rootstrap/apple_sign_in'
+  spec.summary       = 'Integration with Apple Sign In'
+  spec.homepage      = 'https://github.com/rootstrap/apple_auth'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
 
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['source_code_uri'] = 'https://github.com/rootstrap/apple_sign_in'
-  spec.metadata['changelog_uri'] = 'https://github.com/rootstrap/apple_sign_in'
+  spec.metadata['source_code_uri'] = 'https://github.com/rootstrap/apple_auth'
+  spec.metadata['changelog_uri'] = 'https://github.com/rootstrap/apple_auth'
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

@@ -42,6 +42,13 @@ end
 ```
 Set your different credentials in the file by uncommenting the lines and adding your keys.
 
+------------------
+If you are using devise_token_auth gem, you need to run the generator.
+
+    $ rails g apple_sign_in:appple_sign_in_controller [source]
+
+This will generate a new controller: `apple_sign_in_controller.rb`.
+
 ## Usage
 
 This show you an example of a settings

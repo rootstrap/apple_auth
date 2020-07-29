@@ -26,7 +26,7 @@ Or install it yourself as:
 
 ------------------
 
-After installing the gem, you need to run the generator.
+After installing the gem, you need to run this generator.
 
     $ rails g apple_auth:config
 
@@ -43,11 +43,24 @@ end
 Set your different credentials in the file by uncommenting the lines and adding your keys.
 
 ------------------
-If you are using devise_token_auth gem, you need to run the generator.
+If you are using devise_token_auth gem run this generator.
 
-    $ rails g apple_sign_in:appple_sign_in_controller [source]
+    $ rails g apple_sign_in:appple_sign_in_controller [scope]
 
-This will generate a new controller: `apple_sign_in_controller.rb`.
+In the scope yo need to write your path from controllers to yours existents devise controllers.
+An example '$ rails g apple_sign_in:appple_sign_in_controller api/v1/'
+This will generate a new controller: `controllers/api/v1/apple_sign_in_controller.rb`.
+
+You should configure the route, you can wrap it in the devise_scope block like:
+```
+devise_scope :user do
+  resource :user, only: %i[update show] do
+    controller :apple_sign_in do
+      post :apple_sign_in, on: :collection
+    end
+  end
+end
+```
 
 ## Usage
 

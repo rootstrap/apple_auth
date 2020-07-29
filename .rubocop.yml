@@ -1,3 +1,8 @@
+AllCops:
+  TargetRubyVersion:  2.5
+  Exclude:
+    - lib/generators/apple_auth/apple_sign_in_controller/templates/**
+
 Style/Documentation:
   Enabled: false
 

@@ -4,13 +4,9 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/78453501221a76e3806e/maintainability)](https://codeclimate.com/github/rootstrap/apple_sign_in/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/78453501221a76e3806e/test_coverage)](https://codeclimate.com/github/rootstrap/apple_sign_in/test_coverage)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/apple_auth`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your Gemfile:
 
 ```ruby
 gem 'apple_auth'
@@ -20,7 +16,7 @@ And then execute:
 
     $ bundle install
 
-Or install it yourself as:
+Or install it yourself:
 
     $ gem install apple_auth
 
@@ -44,7 +40,7 @@ Set your different credentials in the file by uncommenting the lines and adding 
 
 ## Usage
 
-This show you an example of a settings
+Here's an example of how to configure the gem:
 
 ```ruby
 AppleAuth.configure do |config|
@@ -56,13 +52,13 @@ AppleAuth.configure do |config|
 end
 ```
 
-We strongly recommend to use environment variable when you add this values.
+We strongly recommend to use environment variables for these values.
 
-Apple sign in workflow:
+Apple sign-in workflow:
 
 ![alt text](https://docs-assets.developer.apple.com/published/360d59b776/rendered2x-1592224731.png)
 
-For more information, check the [Apple oficial documentation](https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_rest_api)
+For more information, check the [Apple oficial documentation](https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_rest_api).
 
 Validate JWT token and get user information:
 
@@ -81,7 +77,7 @@ AppleAuth::UserIdentity.new(user_id, invalid_jwt_token).validate!
 >>  AppleAuth::Conditions::JWTValidationError
 ```
 
-Verify user identity and get token:
+Verify user identity and get access and refresh tokens:
 
 ```ruby
 code = 'cfb77c21ecd444390a2c214cd33decdfb.0.mr...'

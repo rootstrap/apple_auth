@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module AppleSignIn
+module AppleAuth
   module Conditions
     class ExpCondition
       def initialize(jwt)

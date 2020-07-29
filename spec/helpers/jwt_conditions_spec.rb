@@ -2,11 +2,11 @@
 
 require 'spec_helper'
 
-RSpec.describe AppleSignIn::JWTConditions do
+RSpec.describe AppleAuth::JWTConditions do
   let(:user_identity) { '1234.5678.910' }
   let(:jwt_sub) { user_identity }
   let(:jwt_iss) { 'https://appleid.apple.com' }
-  let(:jwt_aud) { 'com.apple_sign_in' }
+  let(:jwt_aud) { 'com.apple_auth' }
   let(:jwt_iat) { Time.now.to_i }
   let(:jwt_exp) { (jwt_iat + 5.minutes).to_i }
   let(:jwt) do
@@ -25,7 +25,7 @@ RSpec.describe AppleSignIn::JWTConditions do
   let(:decoded_jwt) { ActiveSupport::HashWithIndifferentAccess.new(jwt) }
 
   before do
-    AppleSignIn.config.apple_client_id = 'com.apple_sign_in'
+    AppleAuth.config.apple_client_id = 'com.apple_auth'
   end
 
   subject(:jwt_conditions_helper) { described_class.new(user_identity, decoded_jwt) }
@@ -43,7 +43,7 @@ RSpec.describe AppleSignIn::JWTConditions do
 
         it 'raises an exception' do
           expect { jwt_conditions_helper.validate! }.to raise_error(
-            AppleSignIn::Conditions::JWTValidationError
+            AppleAuth::Conditions::JWTValidationError
           )
         end
       end
@@ -53,7 +53,7 @@ RSpec.describe AppleSignIn::JWTConditions do
 
         it 'raises an exception' do
           expect { jwt_conditions_helper.validate! }.to raise_error(
-            AppleSignIn::Conditions::JWTValidationError
+            AppleAuth::Conditions::JWTValidationError
           )
         end
       end
@@ -64,17 +64,17 @@ RSpec.describe AppleSignIn::JWTConditions do
 
       it 'raises an exception' do
         expect { jwt_conditions_helper.validate! }.to raise_error(
-          AppleSignIn::Conditions::JWTValidationError
+          AppleAuth::Conditions::JWTValidationError
         )
       end
     end
 
     context 'when jwt_aud is different to apple_client_id' do
-      let(:jwt_aud) { 'net.apple_sign_in' }
+      let(:jwt_aud) { 'net.apple_auth' }
 
       it 'raises an exception' do
         expect { jwt_conditions_helper.validate! }.to raise_error(
-          AppleSignIn::Conditions::JWTValidationError, 'jwt_aud is different to apple_client_id'
+          AppleAuth::Conditions::JWTValidationError, 'jwt_aud is different to apple_client_id'
         )
       end
     end
@@ -84,7 +84,7 @@ RSpec.describe AppleSignIn::JWTConditions do
 
       it 'raises an exception' do
         expect { jwt_conditions_helper.validate! }.to raise_error(
-          AppleSignIn::Conditions::JWTValidationError, 'jwt_iss is different to apple_iss'
+          AppleAuth::Conditions::JWTValidationError, 'jwt_iss is different to apple_iss'
         )
       end
     end
@@ -94,7 +94,7 @@ RSpec.describe AppleSignIn::JWTConditions do
 
       it 'raises an exception' do
         expect { jwt_conditions_helper.validate! }.to raise_error(
-          AppleSignIn::Conditions::JWTValidationError, 'Expired jwt_exp'
+          AppleAuth::Conditions::JWTValidationError, 'Expired jwt_exp'
         )
       end
     end
@@ -104,7 +104,7 @@ RSpec.describe AppleSignIn::JWTConditions do
 
       it 'raises an exception' do
         expect { jwt_conditions_helper.validate! }.to raise_error(
-          AppleSignIn::Conditions::JWTValidationError, 'jwt_iat is greater than now'
+          AppleAuth::Conditions::JWTValidationError, 'jwt_iat is greater than now'
         )
       end
     end

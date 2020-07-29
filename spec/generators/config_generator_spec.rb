@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe AppleSignIn::Generators::ConfigGenerator, type: :generator do
+RSpec.describe AppleAuth::Generators::ConfigGenerator, type: :generator do
   destination File.expand_path('tmp', __dir__)
 
   before do
@@ -12,6 +12,6 @@ RSpec.describe AppleSignIn::Generators::ConfigGenerator, type: :generator do
   it 'creates the config file' do
     run_generator
 
-    expect(File).to exist('spec/generators/tmp/config/initializers/apple_sign_in.rb')
+    expect(File).to exist('spec/generators/tmp/config/initializers/apple_auth.rb')
   end
 end

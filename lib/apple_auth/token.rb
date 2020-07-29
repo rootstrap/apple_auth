@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module AppleSignIn
+module AppleAuth
   class Token
     APPLE_AUD = 'https://appleid.apple.com'
-    APPLE_CONFIG = AppleSignIn.config
+    APPLE_CONFIG = AppleAuth.config
     APPLE_CODE_TYPE = 'authorization_code'
     APPLE_ALG = 'ES256'
 
@@ -51,7 +51,7 @@ module AppleSignIn
     def claims_headers
       {
         alg: APPLE_ALG,
-        kid: AppleSignIn.config.apple_key_id
+        kid: AppleAuth.config.apple_key_id
       }
     end
 
@@ -62,7 +62,7 @@ module AppleSignIn
     end
 
     def gen_private_key
-      key = AppleSignIn.config.apple_private_key
+      key = AppleAuth.config.apple_private_key
       key = OpenSSL::PKey::EC.new(key) unless key.class == OpenSSL::PKey::EC
       key
     end

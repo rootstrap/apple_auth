@@ -1,10 +1,10 @@
-# AppleSignIn
+# AppleAuth
 
 [![CI](https://travis-ci.org/rootstrap/apple_sign_in.svg?branch=master)](https://travis-ci.org/rootstrap/apple_sign_in)
 [![Maintainability](https://api.codeclimate.com/v1/badges/78453501221a76e3806e/maintainability)](https://codeclimate.com/github/rootstrap/apple_sign_in/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/78453501221a76e3806e/test_coverage)](https://codeclimate.com/github/rootstrap/apple_sign_in/test_coverage)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/apple_sign_in`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/apple_auth`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 TODO: Delete this and the text above, and describe your gem
 
@@ -13,7 +13,7 @@ TODO: Delete this and the text above, and describe your gem
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'apple_sign_in'
+gem 'apple_auth'
 ```
 
 And then execute:
@@ -22,17 +22,17 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install apple_sign_in
+    $ gem install apple_auth
 
 ------------------
 
 After installing the gem, you need to run the generator.
 
-    $ rails g apple_sign_in:config
+    $ rails g apple_auth:config
 
-This will generate a new initializer: `apple_sign_in.rb` containing the following default configuration:
+This will generate a new initializer: `apple_auth.rb` containing the following default configuration:
 ```
-AppleSignIn.configure do |config|
+AppleAuth.configure do |config|
   # config.apple_client_id = <Your client_id in your Apple Developer account>
   # config.apple_private_key = <Your private key provided by Apple>
   # config.apple_key_id = <Your kid provided by Apple>
@@ -47,7 +47,7 @@ Set your different credentials in the file by uncommenting the lines and adding 
 This show you an example of a settings
 
 ```ruby
-AppleSignIn.configure do |config|
+AppleAuth.configure do |config|
   config.apple_client_id = 'com.yourapp...'
   config.apple_private_key = "-----BEGIN PRIVATE KEY-----\nMIGTAgEA....\n-----END PRIVATE KEY-----"
   config.apple_key_id = 'RTZ...'
@@ -70,22 +70,22 @@ Validate JWT token and get user information:
 # with a valid JWT
 user_id = '000343.1d22d2937c7a4e56806dfb802b06c430...'
 valid_jwt_token = 'eyJraWQiOiI4NkQ4OEtmIiwiYWxnIjoiUlMyNTYifQ.eyJpc...'
-AppleSignIn::UserIdentity.new(user_id, valid_jwt_token).validate!
+AppleAuth::UserIdentity.new(user_id, valid_jwt_token).validate!
 >>  { exp: 1595279622, email: "user@example.com", email_verified: true , ...}
 
 # with an invalid JWT
 invalid_jwt_token = 'eyJraWQiOiI4NkQsd4OEtmIiwiYWxnIjoiUlMyNTYifQ.edsyJpc...'
-AppleSignIn::UserIdentity.new(user_id, invalid_jwt_token).validate!
+AppleAuth::UserIdentity.new(user_id, invalid_jwt_token).validate!
 >> Traceback (most recent call last):..
 >> ...
->>  AppleSignIn::Conditions::JWTValidationError
+>>  AppleAuth::Conditions::JWTValidationError
 ```
 
 Verify user identity and get token:
 
 ```ruby
 code = 'cfb77c21ecd444390a2c214cd33decdfb.0.mr...'
-AppleSignIn::Token.new(code).authenticate
+AppleAuth::Token.new(code).authenticate
 >> { access_token: "a7058d...", expires_at: 1595894672, refresh_token: "r8f1ce..." }
 ```
 
@@ -97,7 +97,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/apple_sign_in. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/apple_sign_in/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/apple_sign_in. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/apple_auth/blob/master/CODE_OF_CONDUCT.md).
 
 
 ## License
@@ -106,11 +106,11 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the AppleSignIn project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/apple_sign_in/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the AppleAuth project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/apple_auth/blob/master/CODE_OF_CONDUCT.md).
 
 ## Credits
 
-apple_sign_in is maintained by [Rootstrap](http://www.rootstrap.com) with the help of our
+apple_auth is maintained by [Rootstrap](http://www.rootstrap.com) with the help of our
 [contributors](https://github.com/rootstrap/apple_sign_in/contributors).
 
 [<img src="https://s3-us-west-1.amazonaws.com/rootstrap.com/img/rs.png" width="100"/>](http://www.rootstrap.com)

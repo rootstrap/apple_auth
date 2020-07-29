@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-module AppleSignIn
+module AppleAuth
   class JWTConditions
     include Conditions
 

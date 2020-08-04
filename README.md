@@ -52,7 +52,7 @@ You should configure the route, you can wrap it in the devise_scope block like:
 devise_scope :user do
   resource :user, only: %i[update show] do
     controller :apple_sign_in do
-      post :apple_sign_in, on: :collection
+      post :apple_sign_in, on: :collection, to: 'apple_sign_in#create'
     end
   end
 end
@@ -101,7 +101,7 @@ Verify user identity and get access and refresh tokens:
 
 ```ruby
 code = 'cfb77c21ecd444390a2c214cd33decdfb.0.mr...'
-AppleAuth::Token.new(code).authenticate
+AppleAuth::Token.new(code).authenticate!
 >> { access_token: "a7058d...", expires_at: 1595894672, refresh_token: "r8f1ce..." }
 ```
 
@@ -123,6 +123,10 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the AppleAuth project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/apple_auth/blob/master/CODE_OF_CONDUCT.md).
+
+## Demo
+
+You can find a full implementation of this gem in [this demo](https://github.com/rootstrap/apple-sign-in-rails).
 
 ## Credits
 

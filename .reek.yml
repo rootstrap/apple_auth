@@ -126,3 +126,5 @@ detectors:
 
 exclude_paths:
   - config
+  - lib/generators/apple_auth/apple_sign_in_controller/templates
+

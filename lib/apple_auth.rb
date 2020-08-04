@@ -27,3 +27,4 @@ require 'apple_auth/user_identity'
 require 'apple_auth/token'
 
 require 'generators/apple_auth/config/config_generator'
+require 'generators/apple_auth/apple_sign_in_controller/apple_sign_in_controller_generator'

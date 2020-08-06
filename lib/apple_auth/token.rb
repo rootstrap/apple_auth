@@ -12,7 +12,7 @@ module AppleAuth
     end
 
     # :reek:FeatureEnvy
-    def authenticate
+    def authenticate!
       access_token = apple_access_token
       access_token.refresh! if access_token.expired?
 

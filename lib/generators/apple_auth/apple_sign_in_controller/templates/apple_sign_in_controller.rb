@@ -6,7 +6,7 @@ class <%= @scope_prefix %>AppleSignInController < DeviseTokenAuth::SessionsContr
   before_action :skip_session_storage
   before_action :check_json_request
 
-  def apple_sign_in
+  def create
     apple_params = apple_validate
     @resource = sign_in_with_apple(apple_params)
     custom_sign_in
@@ -21,7 +21,7 @@ class <%= @scope_prefix %>AppleSignInController < DeviseTokenAuth::SessionsContr
       apple_sign_in_params[:user_identity],
       apple_sign_in_params[:jwt]
     ).validate!
-    AppleAuth::Token.new(apple_sign_in_params[:code]).authenticate
+    AppleAuth::Token.new(apple_sign_in_params[:code]).authenticate!
 
     data.slice(:email)
   end

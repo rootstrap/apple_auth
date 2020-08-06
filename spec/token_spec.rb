@@ -3,7 +3,7 @@
 RSpec.describe AppleAuth::Token do
   subject(:token_service) { described_class.new(code) }
 
-  context '#authenticate' do
+  context '#authenticate!' do
     context 'when parameters are valid' do
       let(:code) { 'valid_code' }
 
@@ -22,7 +22,7 @@ RSpec.describe AppleAuth::Token do
         end
 
         it 'returns a hash with the corresponding access_token and expired value' do
-          expect(token_service.authenticate).to include(
+          expect(token_service.authenticate!).to include(
             {
               access_token: '1234'
             }
@@ -40,7 +40,7 @@ RSpec.describe AppleAuth::Token do
         end
 
         it 'returns a hash with the corresponding access_token and expired value' do
-          expect(token_service.authenticate).to include(
+          expect(token_service.authenticate!).to include(
             {
               refresh_token: '4321',
               expires_at: 1_594_667_034,

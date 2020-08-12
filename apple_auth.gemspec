@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Timothy Peraza, Antonieta Alvarez, Martín Morón']
   spec.email         = ['timothy@rootstrap.com, antonieta.alvarez@rootstrap.com, martin.jaime@rootstrap.com']
 
-  spec.summary       = 'Integration with Apple Sign In'
+  spec.summary       = 'Integration with Apple Sign In and Devise for backend. Validate and Verify user token.'
   spec.homepage      = 'https://github.com/rootstrap/apple_auth'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')

@@ -1,6 +1,6 @@
 # AppleAuth
 
-[![CI](https://travis-ci.org/rootstrap/apple_sign_in.svg?branch=master)](https://travis-ci.org/rootstrap/apple_sign_in)
+[![CI](https://api.travis-ci.org/rootstrap/apple_auth.svg?branch=master)](https://travis-ci.org/github/rootstrap/apple_auth)
 [![Maintainability](https://api.codeclimate.com/v1/badges/78453501221a76e3806e/maintainability)](https://codeclimate.com/github/rootstrap/apple_sign_in/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/78453501221a76e3806e/test_coverage)](https://codeclimate.com/github/rootstrap/apple_sign_in/test_coverage)
 
@@ -26,8 +26,8 @@ After installing the gem, you need to run this generator.
 
     $ rails g apple_auth:config
 
-This will generate a new initializer: `apple_auth.rb` containing the following default configuration:
-```
+This will generate a new initializer: `apple_auth.rb` with the following default configuration:
+```ruby
 AppleAuth.configure do |config|
   # config.apple_client_id = <Your client_id in your Apple Developer account>
   # config.apple_private_key = <Your private key provided by Apple>
@@ -39,12 +39,12 @@ end
 Set your different credentials in the file by uncommenting the lines and adding your keys.
 
 ------------------
-If you are using devise_token_auth gem run this generator.
+If you are using devise_token_auth gem, run this generator.
 
     $ rails g apple_sign_in:appple_sign_in_controller [scope]
 
-In the scope yo need to write your path from controllers to yours existents devise controllers.
-An example '$ rails g apple_sign_in:appple_sign_in_controller api/v1/'
+In the scope you need to write your path from controllers to your existent devise controllers.
+An example `$ rails g apple_sign_in:appple_sign_in_controller api/v1/`
 This will generate a new controller: `controllers/api/v1/apple_sign_in_controller.rb`.
 
 You should configure the route, you can wrap it in the devise_scope block like:
@@ -113,7 +113,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/apple_sign_in. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/apple_auth/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/rootstrap/apple_auth/issues. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/rootstrap/apple_auth/blob/master/CODE_OF_CONDUCT.md).
 
 
 ## License
@@ -122,7 +122,7 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the AppleAuth project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/apple_auth/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the AppleAuth project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/rootstrap/apple_auth/blob/master/CODE_OF_CONDUCT.md).
 
 ## Demo
 
@@ -130,7 +130,7 @@ You can find a full implementation of this gem in [this demo](https://github.com
 
 ## Credits
 
-apple_auth is maintained by [Rootstrap](http://www.rootstrap.com) with the help of our
-[contributors](https://github.com/rootstrap/apple_sign_in/contributors).
+apple_auth gem is maintained by [Rootstrap](http://www.rootstrap.com) with the help of our
+[contributors](https://github.com/rootstrap/apple_auth/contributors).
 
 [<img src="https://s3-us-west-1.amazonaws.com/rootstrap.com/img/rs.png" width="100"/>](http://www.rootstrap.com)

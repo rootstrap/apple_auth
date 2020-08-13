@@ -39,24 +39,6 @@ end
 Set your different credentials in the file by uncommenting the lines and adding your keys.
 
 ------------------
-If you are using devise_token_auth gem, run this generator.
-
-    $ rails g apple_sign_in:appple_sign_in_controller [scope]
-
-In the scope you need to write your path from controllers to your existent devise controllers.
-An example `$ rails g apple_sign_in:appple_sign_in_controller api/v1/`
-This will generate a new controller: `controllers/api/v1/apple_sign_in_controller.rb`.
-
-You should configure the route, you can wrap it in the devise_scope block like:
-```
-devise_scope :user do
-  resource :user, only: %i[update show] do
-    controller :apple_sign_in do
-      post :apple_sign_in, on: :collection, to: 'apple_sign_in#create'
-    end
-  end
-end
-```
 
 ## Usage
 
@@ -105,6 +87,31 @@ AppleAuth::Token.new(code).authenticate!
 >> { access_token: "a7058d...", expires_at: 1595894672, refresh_token: "r8f1ce..." }
 ```
 
+## Using with Devise
+
+If you are using devise_token_auth gem, run this generator.
+
+    $ rails g apple_sign_in:appple_auth_controller [scope]
+
+In the scope you need to write your path from controllers to your existent devise controllers.
+An example `$ rails g apple_auth:appple_auth_controller api/v1/`
+This will generate a new controller: `controllers/api/v1/apple_auth_controller.rb`.
+
+You should configure the route, you can wrap it in the devise_scope block like:
+```
+devise_scope :user do
+  resource :user, only: %i[update show] do
+    controller :apple_auth do
+      post :apple_auth, on: :collection, to: 'apple_auth#create'
+    end
+  end
+end
+```
+
+## Demo
+
+You can find a full implementation of this gem in [this demo](https://github.com/rootstrap/apple-sign-in-rails).
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -123,10 +130,6 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the AppleAuth project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/rootstrap/apple_auth/blob/master/CODE_OF_CONDUCT.md).
-
-## Demo
-
-You can find a full implementation of this gem in [this demo](https://github.com/rootstrap/apple-sign-in-rails).
 
 ## Credits
 

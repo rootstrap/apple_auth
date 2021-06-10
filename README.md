@@ -33,7 +33,7 @@ AppleAuth.configure do |config|
   # config.apple_private_key = <Your private key provided by Apple>
   # config.apple_key_id = <Your kid provided by Apple>
   # config.apple_team_id = <Your team id provided by Apple>
-  # config.redirect_uri = <Your app redicrect url>
+  # config.redirect_uri = <Your app redirect url>
 end
 ```
 Set your different credentials in the file by uncommenting the lines and adding your keys.

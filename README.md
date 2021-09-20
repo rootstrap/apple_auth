@@ -56,13 +56,13 @@ end
 
 We strongly recommend to use environment variables for these values.
 
-Apple sign-in workflow:
+### Apple sign-in workflow:
 
 ![alt text](https://docs-assets.developer.apple.com/published/360d59b776/rendered2x-1592224731.png)
 
 For more information, check the [Apple oficial documentation](https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_rest_api).
 
-Validate JWT token and get user information:
+### Validate JWT token and get user information:
 
 ```ruby
 # with a valid JWT
@@ -79,7 +79,7 @@ AppleAuth::UserIdentity.new(user_id, invalid_jwt_token).validate!
 >>  AppleAuth::Conditions::JWTValidationError
 ```
 
-Verify user identity and get access and refresh tokens:
+### Verify user identity and get access and refresh tokens:
 
 ```ruby
 code = 'cfb77c21ecd444390a2c214cd33decdfb.0.mr...'

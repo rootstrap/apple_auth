@@ -1,6 +1,6 @@
 # AppleAuth
 
-[![CI](https://api.travis-ci.org/rootstrap/apple_auth.svg?branch=master)](https://travis-ci.org/github/rootstrap/apple_auth)
+[![CI](https://api.travis-ci.com/rootstrap/apple_auth.svg?branch=master)](https://travis-ci.com/github/rootstrap/apple_auth)
 [![Maintainability](https://api.codeclimate.com/v1/badges/78453501221a76e3806e/maintainability)](https://codeclimate.com/github/rootstrap/apple_sign_in/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/78453501221a76e3806e/test_coverage)](https://codeclimate.com/github/rootstrap/apple_sign_in/test_coverage)
 

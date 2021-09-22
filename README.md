@@ -91,10 +91,10 @@ AppleAuth::Token.new(code).authenticate!
 
 If you are using devise_token_auth gem, run this generator.
 
-    $ rails g apple_sign_in:appple_auth_controller [scope]
+    $ rails g apple_sign_in:apple_auth_controller [scope]
 
 In the scope you need to write your path from controllers to your existent devise controllers.
-An example `$ rails g apple_auth:appple_auth_controller api/v1/`
+An example `$ rails g apple_auth:apple_auth_controller api/v1/`
 This will generate a new controller: `controllers/api/v1/apple_auth_controller.rb`.
 
 You should configure the route, you can wrap it in the devise_scope block like:

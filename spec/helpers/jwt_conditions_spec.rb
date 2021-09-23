@@ -48,7 +48,7 @@ RSpec.describe AppleAuth::JWTConditions do
         end
       end
 
-      context 'when exp is not a integer' do
+      context 'when iat is not a integer' do
         let(:jwt_iat) { Time.now }
 
         it 'raises an exception' do
@@ -59,7 +59,7 @@ RSpec.describe AppleAuth::JWTConditions do
       end
     end
 
-    context 'when jwt iss is different to user_identity' do
+    context 'when jwt sub is different to user_identity' do
       let(:jwt_sub) { '1234.5678.911' }
 
       it 'raises an exception' do
@@ -69,7 +69,7 @@ RSpec.describe AppleAuth::JWTConditions do
       end
     end
 
-    context 'when jwt_aud is different to apple_client_id' do
+    context 'when jwt aud is different to apple_client_id' do
       let(:jwt_aud) { 'net.apple_auth' }
 
       it 'raises an exception' do

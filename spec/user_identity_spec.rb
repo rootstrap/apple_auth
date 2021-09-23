@@ -24,6 +24,7 @@ RSpec.describe AppleAuth::UserIdentity do
   end
   let(:signed_jwt) { JWT.encode(jwt, jwk.keypair, 'RS256', kid: jwk.kid) }
   let(:exported_private_key) { JWT::JWK::RSA.new(private_key).export.merge({ alg: 'RS256' }) }
+  let(:apple_body) { [exported_private_key] }
 
   before do
     stub_request(:get, 'https://appleid.apple.com/auth/keys')
@@ -41,7 +42,6 @@ RSpec.describe AppleAuth::UserIdentity do
 
   context '#valid?' do
     context 'when the parameters of the initilizer are correct' do
-      let(:apple_body) { [exported_private_key] }
       let(:user_identity) { '1234.5678.910' }
       let(:uid) { user_identity }
 
@@ -55,8 +55,6 @@ RSpec.describe AppleAuth::UserIdentity do
           JWT::JWK::RSA.new(private_key).export.merge({ alg: 'RS256' })
         end
 
-        let(:apple_body) { [exported_private_key] }
-
         it 'returns the validated JWT attributes' do
           expect(user_identity_service.validate!).to eq(jwt)
         end
@@ -64,7 +62,6 @@ RSpec.describe AppleAuth::UserIdentity do
     end
 
     context 'when the parameters of the initilizer are not correct' do
-      let(:apple_body) { [exported_private_key] }
       let(:user_identity) { '1234.5678.910' }
       let(:uid) { '1234.5678.911' }
 

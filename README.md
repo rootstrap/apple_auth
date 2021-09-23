@@ -89,15 +89,17 @@ AppleAuth::Token.new(code).authenticate!
 
 ### Handle server to server notifications
 
+from the request parameter :payload
+
 ```ruby
 # with a valid JWT
-payload = "eyJraWQiOiJZ......"
-AppleAuth::JWTDecoder.new(payload).call
+params[:payload] = "eyJraWQiOiJZ......"
+AppleAuth::ServerIdentity.new(params[:payload]).validate!
 >> {iss: "https://appleid.apple.com", exp: 1632224024, iat: 1632137624, jti: "yctpp1ZHaGCzaNB9PWB4DA",...}
 
 # with an invalid JWT
-payload = "asdasdasdasd......"
-AppleAuth::JWTDecoder.new(payload).call
+params[:payload] = "asdasdasdasd......"
+AppleAuth::ServerIdentity.new(params[:payload]).validate!
 >> JWT::VerificationError: Signature verification raised
 ```
 
@@ -112,12 +114,12 @@ class Hooks::AuthController < ApplicationController
   # NOTE: The Apple documentation states the events attribute as an array but is in fact a stringified json object
   def apple
     # will raise an error when the signature is invalid
-    payload = AppleAuth::JWTDecoder.new(params[:payload]).call
-    event = JSON.parse(payload["events"])
+    payload = AppleAuth::ServerIdentity.new(params[:payload]).validate!
+    event = JSON.parse(payload[:events]).symbolize_keys
     uid = event["sub"]
     user = User.find_by!(provider: 'apple', uid: uid)
 
-    case event["type"]
+    case event[:type]
     when "email-enabled", "email-disabled"
       # Here we should update the user with the relay state
     when "consent-revoked", "account-delete"

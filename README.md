@@ -1,6 +1,6 @@
 # AppleAuth
 
-[![CI](https://api.travis-ci.org/rootstrap/apple_auth.svg?branch=master)](https://travis-ci.org/github/rootstrap/apple_auth)
+[![CI](https://api.travis-ci.com/rootstrap/apple_auth.svg?branch=master)](https://travis-ci.com/github/rootstrap/apple_auth)
 [![Maintainability](https://api.codeclimate.com/v1/badges/78453501221a76e3806e/maintainability)](https://codeclimate.com/github/rootstrap/apple_sign_in/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/78453501221a76e3806e/test_coverage)](https://codeclimate.com/github/rootstrap/apple_sign_in/test_coverage)
 
@@ -56,13 +56,13 @@ end
 
 We strongly recommend to use environment variables for these values.
 
-Apple sign-in workflow:
+### Apple sign-in workflow:
 
 ![alt text](https://docs-assets.developer.apple.com/published/360d59b776/rendered2x-1592224731.png)
 
 For more information, check the [Apple oficial documentation](https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_rest_api).
 
-Validate JWT token and get user information:
+### Validate JWT token and get user information:
 
 ```ruby
 # with a valid JWT
@@ -79,12 +79,57 @@ AppleAuth::UserIdentity.new(user_id, invalid_jwt_token).validate!
 >>  AppleAuth::Conditions::JWTValidationError
 ```
 
-Verify user identity and get access and refresh tokens:
+### Verify user identity and get access and refresh tokens:
 
 ```ruby
 code = 'cfb77c21ecd444390a2c214cd33decdfb.0.mr...'
 AppleAuth::Token.new(code).authenticate!
 >> { access_token: "a7058d...", expires_at: 1595894672, refresh_token: "r8f1ce..." }
+```
+
+### Handle server to server notifications
+
+from the request parameter :payload
+
+```ruby
+# with a valid JWT
+params[:payload] = "eyJraWQiOiJZ......"
+AppleAuth::ServerIdentity.new(params[:payload]).validate!
+>> {iss: "https://appleid.apple.com", exp: 1632224024, iat: 1632137624, jti: "yctpp1ZHaGCzaNB9PWB4DA",...}
+
+# with an invalid JWT
+params[:payload] = "asdasdasdasd......"
+AppleAuth::ServerIdentity.new(params[:payload]).validate!
+>> JWT::VerificationError: Signature verification raised
+```
+
+Implementation in a controller would look like this:
+
+```ruby
+class Hooks::AuthController < ApplicationController
+
+  skip_before_action :verify_authenticity_token
+
+  # https://developer.apple.com/documentation/sign_in_with_apple/processing_changes_for_sign_in_with_apple_accounts
+  # NOTE: The Apple documentation states the events attribute as an array but is in fact a stringified json object
+  def apple
+    # will raise an error when the signature is invalid
+    payload = AppleAuth::ServerIdentity.new(params[:payload]).validate!
+    event = JSON.parse(payload[:events]).symbolize_keys
+    uid = event["sub"]
+    user = User.find_by!(provider: 'apple', uid: uid)
+
+    case event[:type]
+    when "email-enabled", "email-disabled"
+      # Here we should update the user with the relay state
+    when "consent-revoked", "account-delete"
+      user.destroy!
+    else
+      throw event
+    end
+    render plain: "200 OK", status: :ok
+  end
+end
 ```
 
 ## Using with Devise

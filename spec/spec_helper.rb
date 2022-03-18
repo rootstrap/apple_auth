@@ -4,14 +4,14 @@ require 'rspec'
 require 'action_controller/railtie'
 require 'generator_spec'
 require 'bundler/setup'
-require 'simplecov'
 require 'webmock/rspec'
 
-require './lib/apple_auth'
-
+require 'simplecov'
 SimpleCov.start do
   add_filter '/spec/'
 end
+
+require './lib/apple_auth'
 
 require 'apple_auth/base'
 

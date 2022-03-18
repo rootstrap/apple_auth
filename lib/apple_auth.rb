@@ -22,7 +22,10 @@ require 'apple_auth/helpers/conditions/exp_condition'
 require 'apple_auth/helpers/conditions/iat_condition'
 require 'apple_auth/helpers/conditions/iss_condition'
 require 'apple_auth/helpers/jwt_conditions'
+require 'apple_auth/helpers/jwt_decoder'
+require 'apple_auth/helpers/jwt_server_conditions'
 
+require 'apple_auth/server_identity'
 require 'apple_auth/user_identity'
 require 'apple_auth/token'
 

@@ -31,7 +31,6 @@ jobs:
       - name: Run tests
         run: bundle exec rspec
         timeout-minutes: 1
-        if: !matrix.coverage
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:

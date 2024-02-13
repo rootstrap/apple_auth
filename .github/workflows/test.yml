@@ -1,0 +1,44 @@
+name: Test
+
+on:
+  pull_request:
+    branches: ["master", "main"]
+
+  push:
+    branches: ["master", "main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: ${{ matrix.ruby }}
+    env:
+      CC_TEST_REPORTER_ID: cb01575b98b3b80848a3bc292ca6145860871470e5d0669453030d36578f9115
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - ruby: ruby:2.5
+          - ruby: ruby:2.6
+          - ruby: ruby:2.7
+          - ruby: ruby:3.0
+            coverage: true
+    name: test/ruby ${{ matrix.ruby }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Code Climate test-reporter
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
+        if: matrix.coverage
+      - name: Bundle install
+        run: bundle install -j$(nproc) --retry 3
+      - name: Run tests
+        run: bundle exec rspec
+        timeout-minutes: 1
+      - name: Publish code coverage
+        run: |
+          export GIT_BRANCH="${GITHUB_REF/refs\/heads\//}"
+          ./cc-test-reporter after-build -r ${{env.CC_TEST_REPORTER_ID}}
+        if: matrix.coverage

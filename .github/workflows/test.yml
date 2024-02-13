@@ -11,8 +11,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container: ${{ matrix.ruby }}
-    env:
-      CC_TEST_REPORTER_ID: cb01575b98b3b80848a3bc292ca6145860871470e5d0669453030d36578f9115
     strategy:
       fail-fast: false
       matrix:
@@ -33,9 +31,9 @@ jobs:
         timeout-minutes: 1
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
-        if: matrix.coverage
+        if: matrix.coverage && github.ref == 'refs/heads/master'
         env:
-          CC_TEST_REPORTER_ID: ${{ env.CC_TEST_REPORTER_ID }}
+          CC_TEST_REPORTER_ID: cb01575b98b3b80848a3bc292ca6145860871470e5d0669453030d36578f9115
         with:
           coverageCommand: bundle exec rspec
           coverageLocations: ${{ github.workspace }}/coverage/coverage.json:simplecov

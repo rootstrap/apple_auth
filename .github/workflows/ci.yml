@@ -1,4 +1,4 @@
-name: Test
+name: CI
 
 on:
   pull_request:
@@ -8,6 +8,21 @@ on:
     branches: ["master", "main"]
 
 jobs:
+  linter:
+    runs-on: ubuntu-latest
+    name: linter/ruby
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          bundler-cache: true
+
+      - name: Run linter
+        run: bundle exec rake code_analysis
   test:
     runs-on: ubuntu-latest
     container: ${{ matrix.ruby }}

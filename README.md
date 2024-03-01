@@ -1,6 +1,7 @@
 # AppleAuth
 
-[![CI](https://api.travis-ci.com/rootstrap/apple_auth.svg?branch=master)](https://travis-ci.com/github/rootstrap/apple_auth)
+[![Gem Version](https://badge.fury.io/rb/apple_auth.svg)](https://badge.fury.io/rb/apple_auth)
+![CI](https://github.com/rootstrap/apple_auth/actions/workflows/ci.yml/badge.svg?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/78453501221a76e3806e/maintainability)](https://codeclimate.com/github/rootstrap/apple_sign_in/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/78453501221a76e3806e/test_coverage)](https://codeclimate.com/github/rootstrap/apple_sign_in/test_coverage)
 
@@ -20,13 +21,14 @@ Or install it yourself:
 
     $ gem install apple_auth
 
-------------------
+---
 
 After installing the gem, you need to run this generator.
 
     $ rails g apple_auth:config
 
 This will generate a new initializer: `apple_auth.rb` with the following default configuration:
+
 ```ruby
 AppleAuth.configure do |config|
   # config.apple_client_id = <Your client_id in your Apple Developer account>
@@ -36,9 +38,10 @@ AppleAuth.configure do |config|
   # config.redirect_uri = <Your app redirect url>
 end
 ```
+
 Set your different credentials in the file by uncommenting the lines and adding your keys.
 
-------------------
+---
 
 ## Usage
 
@@ -143,6 +146,7 @@ An example `$ rails g apple_auth:apple_auth_controller api/v1/`
 This will generate a new controller: `controllers/api/v1/apple_auth_controller.rb`.
 
 You should configure the route, you can wrap it in the devise_scope block like:
+
 ```
 devise_scope :user do
   resource :user, only: %i[update show] do
@@ -166,7 +170,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/rootstrap/apple_auth/issues. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/rootstrap/apple_auth/blob/master/CODE_OF_CONDUCT.md).
-
 
 ## License
 

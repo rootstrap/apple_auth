@@ -18,7 +18,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6
+          ruby-version: 2.7
           bundler-cache: true
 
       - name: Run linters
@@ -45,7 +45,7 @@ jobs:
         run: bundle exec rspec
         timeout-minutes: 1
       - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v3.0.0
+        uses: paambaati/codeclimate-action@v5.0.0
         if: matrix.coverage && github.ref == 'refs/heads/master'
         env:
           CC_TEST_REPORTER_ID: cb01575b98b3b80848a3bc292ca6145860871470e5d0669453030d36578f9115

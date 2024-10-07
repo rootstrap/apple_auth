@@ -53,7 +53,6 @@ detectors:
     enabled: true
     exclude: []
     max_allowed_nesting: 2
-    ignore_iterators: []
   NilCheck:
     enabled: false
     exclude: []

@@ -30,7 +30,7 @@ Metrics/BlockLength:
     - '*.gemspec'
     - config/**/*
     - spec/**/*
-  ExcludedMethods:
+  AllowedMethods:
     - class_methods
 
 Metrics/BlockNesting:

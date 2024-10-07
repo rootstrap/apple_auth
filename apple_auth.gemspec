@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
 
   # Production dependencies
   spec.add_dependency 'jwt', '~> 2.2'
-  spec.add_dependency 'oauth2', '~> 1.4'
+  spec.add_dependency 'oauth2', '~> 2.0'
 
   # Development dependencies
   spec.add_development_dependency 'generator_spec', '~> 0.9.4'

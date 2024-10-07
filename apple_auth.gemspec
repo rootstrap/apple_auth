@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   # Production dependencies
-  spec.add_dependency 'jwt', '~> 2.2'
+  spec.add_dependency 'jwt', '~> 2.9.3'
   spec.add_dependency 'oauth2', '~> 2.0'
 
   # Development dependencies

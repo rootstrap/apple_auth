@@ -35,7 +35,9 @@ Gem::Specification.new do |spec|
 
   # Development dependencies
   spec.add_development_dependency 'byebug', '~> 11.1'
+  spec.add_development_dependency 'drb' # Will be removed from the standard library in Ruby 3.4
   spec.add_development_dependency 'generator_spec', '~> 0.9.4'
+  spec.add_development_dependency 'mutex_m' # Will be removed from the standard library in Ruby 3.4
   spec.add_development_dependency 'parser', '~> 3.0'
   spec.add_development_dependency 'railties', '~> 6.0'
   spec.add_development_dependency 'rake', '~> 13.0'

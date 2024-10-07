@@ -74,7 +74,7 @@ RSpec.describe AppleAuth::JWTServerConditions do
 
       it 'raises an exception' do
         expect { jwt_conditions_helper.validate! }.to raise_error(
-          AppleAuth::Conditions::JWTValidationError, 'jwt_iat is greater than now'
+          AppleAuth::Conditions::JWTValidationError, 'Invalid iat'
         )
       end
     end

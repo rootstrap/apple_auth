@@ -3,7 +3,6 @@
 RSpec.describe AppleAuth::Token do
   subject(:token_service) { described_class.new(code) }
 
-  # ostruct is deprecated, so we use a Struct instead
   MockedData = Struct.new(:token, :expired?, :expires?, :refresh_token, :expires_at) do
     def refresh!
       self

@@ -2,6 +2,7 @@
 
 module AppleAuth
   module Base
-    VERSION = '1.1.0'
+    # Updated major version as the gem is now compatible with Ruby 3.0 and OAuth2 2.0
+    VERSION = '2.0.0'
   end
 end

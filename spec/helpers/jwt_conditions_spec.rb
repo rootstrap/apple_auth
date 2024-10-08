@@ -39,7 +39,7 @@ RSpec.describe AppleAuth::JWTConditions do
 
     context 'when jwt has incorrect type attributes' do
       context 'when exp is not a integer' do
-        let(:jwt_exp) { Time.now + 5.minutes }
+        let(:jwt_exp) { 'Invalid' } # Dates are now valid on JWT library
 
         it 'raises an exception' do
           expect { jwt_conditions_helper.validate! }.to raise_error(
@@ -94,7 +94,7 @@ RSpec.describe AppleAuth::JWTConditions do
 
       it 'raises an exception' do
         expect { jwt_conditions_helper.validate! }.to raise_error(
-          AppleAuth::Conditions::JWTValidationError, 'Expired jwt_exp'
+          AppleAuth::Conditions::JWTValidationError, 'Signature has expired'
         )
       end
     end
@@ -104,7 +104,7 @@ RSpec.describe AppleAuth::JWTConditions do
 
       it 'raises an exception' do
         expect { jwt_conditions_helper.validate! }.to raise_error(
-          AppleAuth::Conditions::JWTValidationError, 'jwt_iat is greater than now'
+          AppleAuth::Conditions::JWTValidationError, 'Invalid iat'
         )
       end
     end

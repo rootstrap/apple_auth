@@ -63,7 +63,7 @@ module AppleAuth
 
     def gen_private_key
       key = AppleAuth.config.apple_private_key
-      key = OpenSSL::PKey::EC.new(key) unless key.class == OpenSSL::PKey::EC
+      key = OpenSSL::PKey::EC.new(key) unless key.instance_of?(OpenSSL::PKey::EC)
       key
     end
 
@@ -73,6 +73,18 @@ module AppleAuth
         authorize_url: '/auth/authorize',
         token_url: '/auth/token'
       }
+    end
+
+    # Apple seems to expect the auth_scheme to be on
+    # the body, the default is :basic_auth
+    def auth_scheme
+      {
+        auth_scheme: :request_body
+      }
+    end
+
+    def oauth_options
+      client_urls.merge(auth_scheme)
     end
 
     def reponse_hash(access_token)
@@ -91,7 +103,7 @@ module AppleAuth
     def apple_access_token
       client = ::OAuth2::Client.new(APPLE_CONFIG.apple_client_id,
                                     client_secret_from_jwt,
-                                    client_urls)
+                                    oauth_options)
       client.auth_code.get_token(code, { redirect_uri: APPLE_CONFIG.redirect_uri }, {})
     end
   end

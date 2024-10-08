@@ -105,9 +105,6 @@ module AppleAuth
                                     client_secret_from_jwt,
                                     oauth_options)
       client.auth_code.get_token(code, { redirect_uri: APPLE_CONFIG.redirect_uri }, {})
-    rescue StandardError => e
-      puts "#{e.message} #{e.backtrace}"
-      raise e
     end
   end
 end

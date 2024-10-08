@@ -19,7 +19,8 @@ module AppleAuth
     end
 
     def validate!
-      ::JWT::Claims.verify_payload!(decoded_jwt, :exp, :iat).nil? && validate_sub! && jwt_conditions_validate!
+      ::JWT::Claims.verify_payload!(decoded_jwt, :exp,
+                                    :iat).nil? && validate_sub! && jwt_conditions_validate!
     rescue JWT::DecodeError => e
       raise JWTValidationError, e.message
     end

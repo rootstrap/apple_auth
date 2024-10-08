@@ -39,7 +39,7 @@ RSpec.describe AppleAuth::JWTConditions do
 
     context 'when jwt has incorrect type attributes' do
       context 'when exp is not a integer' do
-        let(:jwt_exp) { "Invalid" } # Dates are now valid on JWT library
+        let(:jwt_exp) { 'Invalid' } # Dates are now valid on JWT library
 
         it 'raises an exception' do
           expect { jwt_conditions_helper.validate! }.to raise_error(

@@ -1,5 +1,7 @@
 AllCops:
-  TargetRubyVersion:  2.5
+  TargetRubyVersion: 3.0
+  SuggestExtensions: false
+  NewCops: disable
   Exclude:
     - lib/generators/apple_auth/apple_auth_controller/templates/**
 
@@ -22,10 +24,10 @@ Metrics/BlockLength:
   CountComments: false
   Max: 25
   Exclude:
-    - '*.gemspec'
+    - "*.gemspec"
     - config/**/*
     - spec/**/*
-  ExcludedMethods:
+  AllowedMethods:
     - class_methods
 
 Metrics/BlockNesting:

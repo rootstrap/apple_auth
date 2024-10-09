@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'ostruct'
+
 RSpec.describe AppleAuth::Token do
   subject(:token_service) { described_class.new(code) }
 
@@ -9,7 +11,7 @@ RSpec.describe AppleAuth::Token do
 
       before do
         AppleAuth.config.apple_client_id = 'client_id'
-        AppleAuth.config.apple_private_key = OpenSSL::PKey::EC.new('prime256v1').generate_key!
+        AppleAuth.config.apple_private_key = OpenSSL::PKey::EC.generate('prime256v1')
         AppleAuth.config.apple_key_id = 'apple_kid'
         AppleAuth.config.apple_team_id = 'team_id'
         AppleAuth.config.redirect_uri = 'www.example.com'

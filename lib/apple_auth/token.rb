@@ -63,7 +63,7 @@ module AppleAuth
 
     def gen_private_key
       key = AppleAuth.config.apple_private_key
-      key = OpenSSL::PKey::EC.new(key) unless key.class == OpenSSL::PKey::EC
+      key = OpenSSL::PKey::EC.new(key) unless key.instance_of?(OpenSSL::PKey::EC)
       key
     end
 

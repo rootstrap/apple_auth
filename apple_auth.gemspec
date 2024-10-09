@@ -35,10 +35,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'byebug', '~> 11.1'
   spec.add_development_dependency 'railties', '~> 6.0'
   spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'reek', '~> 5.6'
+  spec.add_development_dependency 'reek', '~> 6.0'
   spec.add_development_dependency 'rspec', '~> 3.9'
-  spec.add_development_dependency 'rubocop', '~> 0.80'
-  spec.add_development_dependency 'parser', '~> 2.7.1.1'
+  spec.add_development_dependency 'rubocop', '~> 1.66'
+  spec.add_development_dependency 'parser', '~> 3.3.0'
   spec.add_development_dependency 'simplecov', '~> 0.17.1'
   spec.add_development_dependency 'webmock', '~> 3.8'
 end

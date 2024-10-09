@@ -7,6 +7,10 @@ on:
   push:
     branches: ["master", "main"]
 
+concurrency:
+  group: ${{ github.ref }}-CI
+  cancel-in-progress: true
+
 jobs:
   linters:
     runs-on: ubuntu-latest
@@ -18,7 +22,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7
+          ruby-version: 3.0
           bundler-cache: true
 
       - name: Run linters
@@ -30,11 +34,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - ruby: ruby:2.5
-          - ruby: ruby:2.6
-          - ruby: ruby:2.7
           - ruby: ruby:3.0
             coverage: true
+          - ruby: ruby:3.1
+          - ruby: ruby:3.2
+          - ruby: ruby:3.3
     name: test/ruby ${{ matrix.ruby }}
     steps:
       - name: Checkout repository
